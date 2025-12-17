@@ -1,0 +1,14 @@
+=== Résumé de la commande n°0 ===
+Date: Wed Dec 17 13:28:30 CET 2025
+
+------ Menu #1 ------
+- Entrée : Salade (5,50€)
+- Plat : Boeuf (15,00€)
+- Accompagnement : Frites (3,50€)
+- Boisson : Vin (5,00€)
+- Dessert : Tiramisu (5,50€)
+Total du menu : 34,50€
+
+TOTAL: 34,50€
+=====================================
+
