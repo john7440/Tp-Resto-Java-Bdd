@@ -10,7 +10,7 @@ import java.util.List;
 public class MenuItemDAOImpl implements MenuItemDAO {
 	
 	@Override
-	public List<MenuItem> getAllByCategory(String category){
+	public List<MenuItem> getAllbyCategory(String category){
 		List<MenuItem> items = new ArrayList<>();
 		String sql = "SELECT * FROM menu_items WHERE category = ?";
 		
@@ -64,8 +64,27 @@ public class MenuItemDAOImpl implements MenuItemDAO {
 
 	@Override
 	public MenuItem getByName(String name) {
-		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM menu_items WHERE name = ?";
+		
+		try (Connection connection  = DatabaseConnection.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql)){
+			
+			statement.setString(1, name);
+            ResultSet rs = statement.executeQuery();
+            
+            if (rs.next()) {
+                return new MenuItem(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("category"),
+                    rs.getDouble("price")
+                );
+            }
+		} catch (SQLException e) {
+            e.printStackTrace();
+        }
 		return null;
 	}
 
+	
 }
