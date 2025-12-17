@@ -60,6 +60,10 @@ public class Order {
 	public void setOrderDetails(List<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
+	
+	public void addOrderDetail(OrderDetail detail) {
+        this.orderDetails.add(detail);
+    }
 
 	
 }
