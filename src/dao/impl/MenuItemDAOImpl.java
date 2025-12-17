@@ -39,7 +39,26 @@ public class MenuItemDAOImpl implements MenuItemDAO {
 
 	@Override
 	public MenuItem getById(int id) {
-		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM menu_items WHERE id = ?";
+		
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql)){
+			
+			statement.setInt(1, id);
+			ResultSet rs = statement.executeQuery();
+			
+			if (rs.next()) {
+				return new MenuItem(
+						rs.getInt("id"),
+						rs.getString("name"),
+						rs.getString("category"),
+						rs.getDouble("price")
+						);
+			}
+			
+		} catch (SQLException e) {
+            e.printStackTrace();
+        }
 		return null;
 	}
 
