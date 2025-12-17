@@ -25,7 +25,8 @@ public class MainMenu {
 			scan.nextLine();
 			
 			OrderDAO orderDAO = new OrderDAOImpl();
-			int nextOrderNumber = orderDAO.getLastOrderNumber();
+			int lastOrderNumber = orderDAO.getLastOrderNumber();
+			int nextOrderNumber = lastOrderNumber + 1;
 			
 			Order order = new Order(nextOrderNumber, 0.0);
 			double totalCommande = 0.0;
@@ -47,7 +48,7 @@ public class MainMenu {
 			order.setTotalPrice(totalCommande);
 			
 			//notre affichage
-			System.out.println("\n========== Récapitulatif de la commande n°" + nextOrderNumber + " ==========");
+			System.out.println("\n========== Récapitulatif de la commande n°" + order.getOrderNumber() + " ==========");
 			for (OrderDetail detail : order.getOrderDetails()) {
 				System.out.println("\n------ Menu #" + detail.getMenuNumber() + " ------" + "\n");
 				System.out.println("- Entrée : " + detail.getAppetizer().getName() + 
