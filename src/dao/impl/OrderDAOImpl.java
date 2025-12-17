@@ -106,7 +106,25 @@ public class OrderDAOImpl implements OrderDAO{
 
 	@Override
 	public Order getOrderById(int id) {
-		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM orders WHERE id = ?";
+		
+		try (Connection connection = DatabaseConnection.getConnection();
+			 PreparedStatement statement = connection.prepareStatement(sql)){
+			
+			statement.setInt(1,id);
+			ResultSet rs = statement.executeQuery();
+			
+			if (rs.next()) {
+				Order order = new Order();
+                order.setId(rs.getInt("id"));
+                order.setOrderNumber(rs.getInt("order_number"));
+                order.setOrderDate(rs.getTimestamp("order_date"));
+                order.setTotalPrice(rs.getDouble("total_price"));
+                return order;
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 		return null;
 	}
 
