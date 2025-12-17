@@ -89,7 +89,7 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public int getLastOrderNumber() {
 		// COALESCE retourne le 1er qui n'est pas NULL
-		String sql = "SELECT COALESCE(MAX(order_number,0) as last_order FROM orders";
+		String sql = "SELECT COALESCE(MAX(order_number),0) as last_order FROM orders";
 		
 		try (Connection connection = DatabaseConnection.getConnection();
 			 PreparedStatement statement = connection.prepareStatement(sql);
