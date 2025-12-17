@@ -8,8 +8,8 @@ public class DatabaseConnection {
 	private static Connection connection;
 	
 	private static final String URL = "jdbc:mariadb://localhost:3308/restaurant_db";
-	private static final String USER = "root";
-	private static final String PASSWORD = "Bi3rs077ZBGSv4lM98w8";
+	private static final String USER = "restaurant_user";
+	private static final String PASSWORD = "Louvre654321Plouf";
 	
 	
 	public static Connection getConnection() throws SQLException{
