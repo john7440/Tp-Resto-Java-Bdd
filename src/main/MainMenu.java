@@ -5,6 +5,10 @@ import dao.impl.OrderDAOImpl;
 import model.MenuItem;
 import model.Order;
 import model.OrderDetail;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
@@ -67,7 +71,7 @@ public class MainMenu {
             
             //sauvegarde fichier
             if (orderId > 0) {
-            	saveOrderToFile(order, df); // a implémenter
+            	saveOrderToFile(order, df);
             }
 			
 		} else {
@@ -77,6 +81,50 @@ public class MainMenu {
 		scan.close();
 	}
 	
-	
+	private static void saveOrderToFile(Order order, DecimalFormat df) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("order.txt", true))){
+			
+			writer.write("=== Résumé de la commande n°" + order.getOrderNumber() + " ===");
+			writer.newLine();
+			writer.write("Date: " + new java.util.Date());
+            writer.newLine();
+            writer.newLine();
+            
+            for (OrderDetail detail : order.getOrderDetails()) {
+            	writer.write("------ Menu #" + detail.getMenuNumber() + " ------");
+            	writer.newLine();
+            	writer.write("- Entrée : " + detail.getAppetizer().getName() + 
+                        " (" + df.format(detail.getAppetizer().getPrice()) + "€)");
+            	writer.newLine();
+            	writer.write("- Plat : " + detail.getMainCourse().getName() + 
+                        " (" + df.format(detail.getMainCourse().getPrice()) + "€)");
+            	writer.newLine();
+            	writer.write("- Accompagnement : " + detail.getSide().getName() + 
+                        " (" + df.format(detail.getSide().getPrice()) + "€)");
+            	writer.newLine();
+            	writer.write("- Boisson : " + detail.getDrink().getName() + 
+                        " (" + df.format(detail.getDrink().getPrice()) + "€)");
+            	writer.newLine();
+            	writer.write("- Dessert : " + detail.getDessert().getName() + 
+                        " (" + df.format(detail.getDessert().getPrice()) + "€)");
+            	writer.newLine();
+            	writer.write("Total du menu : " + df.format(detail.getMenuTotal()) + "€");
+                writer.newLine();
+                writer.newLine();
+            }
+            
+            writer.write("TOTAL: " + df.format(order.getTotalPrice()) + "€");
+            writer.newLine();
+            writer.write("=====================================");
+            writer.newLine();
+            writer.newLine();
+            
+            System.out.println("\nCommande n°" + order.getOrderNumber() + " sauvegardée dans order.txt");
+            
+		} catch (IOException e) {
+			System.err.println("Erreur lors de l'écriture du fichier: " + e.getMessage());
+		}
+	}
+		
 
 }
